@@ -1,0 +1,6 @@
+@CampEscapeAPI_HostAddress = http://localhost:5195
+
+GET {{CampEscapeAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
