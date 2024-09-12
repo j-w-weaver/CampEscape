@@ -16,7 +16,7 @@ builder.Services.AddCors(options =>
         builder.AllowAnyOrigin();
         builder.AllowAnyHeader();
         builder.AllowAnyMethod();
-    });      
+    });
 });
 
 builder.Host.UseSerilog((context, logConfig) =>
