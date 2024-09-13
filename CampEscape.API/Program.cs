@@ -1,13 +1,17 @@
+using CampEscape.API.Data;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<CampEscapeDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CampEscapeDbConnectionString"));
+});
 
 builder.Services.AddCors(options =>
 {
