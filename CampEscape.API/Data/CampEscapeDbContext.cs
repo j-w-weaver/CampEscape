@@ -23,9 +23,9 @@ namespace CampEscape.API.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Camp>()
-                .HasMany(c => c.Regions)
-                .WithOne(r => r.Camp)
-                .HasForeignKey(r => r.CampId);
+                .HasMany(c => c.Regions);
+                //.WithOne(r => r.Camp)
+                //.HasForeignKey(r => r.CampId);
 
             modelBuilder.Entity<Region>()
                 .HasMany(r => r.Campsites)

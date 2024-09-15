@@ -4,6 +4,7 @@ using CampEscape.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CampEscape.API.Migrations
 {
     [DbContext(typeof(CampEscapeDbContext))]
-    partial class CampEscapeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240913215125_AddedNullables")]
+    partial class AddedNullables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -138,6 +141,7 @@ namespace CampEscape.API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -254,13 +258,14 @@ namespace CampEscape.API.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CampId")
+                    b.Property<int>("CampId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -338,9 +343,13 @@ namespace CampEscape.API.Migrations
 
             modelBuilder.Entity("CampEscape.API.Data.Entities.Region", b =>
                 {
-                    b.HasOne("CampEscape.API.Data.Entities.Camp", null)
+                    b.HasOne("CampEscape.API.Data.Entities.Camp", "Camp")
                         .WithMany("Regions")
-                        .HasForeignKey("CampId");
+                        .HasForeignKey("CampId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Camp");
                 });
 
             modelBuilder.Entity("CampEscape.API.Data.Entities.Camp", b =>

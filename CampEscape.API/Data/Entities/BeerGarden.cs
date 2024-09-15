@@ -6,8 +6,8 @@ namespace CampEscape.API.Data.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public string AlcoholType { get; set; } = string.Empty;
-        public string OperatingHours { get; set; } = string.Empty;
+        public string? AlcoholType { get; set; } = string.Empty;
+        public string? OperatingHours { get; set; } = string.Empty;
         public bool SellFood { get; set; }
 
         [ForeignKey(nameof(RegionId))]
