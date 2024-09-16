@@ -50,13 +50,12 @@ namespace CampEscape.API.Controllers
         }
 
         // PUT: api/Regions/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateRegion(int id, Region region)
         {
             if (id != region.Id)
             {
-                return BadRequest();
+                return BadRequest("Invalid RegionId. Region Not Found.");
             }
 
             _context.Entry(region).State = EntityState.Modified;
@@ -77,7 +76,7 @@ namespace CampEscape.API.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok("Region Updated Successfully.");
         }
 
         // POST: api/Regions 
