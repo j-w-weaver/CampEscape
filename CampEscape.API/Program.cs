@@ -1,3 +1,4 @@
+using CampEscape.API.Configurations;
 using CampEscape.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -22,6 +23,8 @@ builder.Services.AddCors(options =>
         builder.AllowAnyMethod();
     });
 });
+
+builder.Services.AddAutoMapper(typeof(MapperConfig));
 
 builder.Host.UseSerilog((context, logConfig) =>
     logConfig

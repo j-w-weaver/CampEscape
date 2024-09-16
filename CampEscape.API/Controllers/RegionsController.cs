@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CampEscape.API.Data;
 using CampEscape.API.Data.Entities;
+using CampEscape.API.DTOs;
+using AutoMapper;
 
 namespace CampEscape.API.Controllers
 {
@@ -15,15 +17,17 @@ namespace CampEscape.API.Controllers
     public class RegionsController : ControllerBase
     {
         private readonly CampEscapeDbContext _context;
+        private readonly IMapper _mapper;
 
-        public RegionsController(CampEscapeDbContext context)
+        public RegionsController(CampEscapeDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Regions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Region>>> GetRegions()
+        public async Task<ActionResult<IEnumerable<GetRegionDTO>>> GetRegions()
         {
             var regions = await _context.Regions.ToListAsync();
 
@@ -32,7 +36,9 @@ namespace CampEscape.API.Controllers
                 return NotFound();
             }
 
-            return Ok(regions);
+            var records = _mapper.Map<List<GetRegionDTO>>(regions);
+
+            return Ok(records);
         }
 
         // GET: api/Regions/5
@@ -81,8 +87,10 @@ namespace CampEscape.API.Controllers
 
         // POST: api/Regions 
         [HttpPost]
-        public async Task<ActionResult<Region>> CreateRegion(Region region)
+        public async Task<ActionResult<Region>> CreateRegion(CreateRegionDTO createRegionDTO)
         {
+            var region = _mapper.Map<Region>(createRegionDTO);
+
             _context.Regions.Add(region);
             await _context.SaveChangesAsync();
 
