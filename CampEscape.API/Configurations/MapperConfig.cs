@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CampEscape.API.DTOs;
-using System.Drawing;
+using CampEscape.API.Data.Entities;
 
 namespace CampEscape.API.Configurations;
 

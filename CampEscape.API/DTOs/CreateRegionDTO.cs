@@ -6,6 +6,7 @@ namespace CampEscape.API.DTOs
     {
         [Required]
         public string Name { get; set; } = string.Empty;
+        public int? CampId { get; set; }
         public string? Description { get; set; } = string.Empty;
     }
 }
